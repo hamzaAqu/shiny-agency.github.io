@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
 import Card from '../../components/Card'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import { Loader } from '../../utils/style/Atoms'
+import {useFetch} from '../../utils/hooks'
 
 const CardsContainer = styled.div`
   display: grid;
@@ -33,11 +33,13 @@ const LoaderWrapper = styled.div`
 `
 
 function Freelances() {
-  const [isDataLoading, setDataLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [freelancersList, setFreelancesList] = useState([])
+ /*  const [isDataLoading, setDataLoading] = useState(false)
+  const [error, setError] = useState(false) */
+ // const [freelancersList, setFreelancesList] = useState([])
+  const {data,isLoading,error} = useFetch(`http://localhost:8000/freelances`)
+  const freelancersList = data?.freelancersList
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function fetchFreelances() {
       setDataLoading(true)
       try {
@@ -53,7 +55,7 @@ function Freelances() {
     }
     fetchFreelances()
   }, [])
-
+ */
   if (error) {
     return <span>Oups il y a eu un problème</span>
   }
@@ -64,7 +66,7 @@ function Freelances() {
       <PageSubtitle>
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </PageSubtitle>
-      {isDataLoading ? (
+      {isLoading ? (
         <LoaderWrapper>
           <Loader />
         </LoaderWrapper>
