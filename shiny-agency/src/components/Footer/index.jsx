@@ -30,6 +30,7 @@ function Footer() {
       </NightModeButton>
     </FooterContainer>
   )
+ 
 }
 
 export default Footer

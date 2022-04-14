@@ -52,8 +52,12 @@ const LoaderWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
+export function formatJobList(title,length,index){
+  if(index === length-1){return title}
+return `${title},`
+}
 
-function formatFetchParams(answers) {
+export function formatQueryParams(answers) {
   const answerNumbers = Object.keys(answers)
 
   return answerNumbers.reduce((previousParams, answerNumber, index) => {
@@ -66,7 +70,7 @@ function formatFetchParams(answers) {
 function Results() {
   const { theme } = useTheme()
   const { answers } = useContext(SurveyContext)
-  const fetchParams = formatFetchParams(answers)
+  const fetchParams = formatQueryParams(answers)
 
   const { data, isLoading, error } = useFetch(
     `http://localhost:8000/results?${fetchParams}`
@@ -92,8 +96,9 @@ function Results() {
               key={`result-title-${index}-${result.title}`}
               theme={theme}
             >
-              {result.title}
-              {index === resultsData.length - 1 ? '' : ','}
+              {formatJobList(result.title,resultsData.length,index)}
+              {/* {result.title} */}
+              {/* {index === resultsData.length - 1 ? '' : ','} */}
             </JobTitle>
           ))}
       </ResultsTitle>
