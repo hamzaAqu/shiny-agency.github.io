@@ -1,6 +1,10 @@
 
-import {formatJobList} from './'
-import {formatQueryParams} from './'
+import {formatJobList,formatQueryParams} from './'
+import {screen, waitForElementToBeRemoved} from '@testing-library/react'
+import {rest} from'msw'
+import {setupServer} from 'msw/node'
+import {render} from '../../utils/test'
+
 
 describe('faire les deux tests de formatJobList', ()=>{
     test('tester fonction formatJob',()=>{
@@ -25,3 +29,35 @@ describe('The formatQueryParams function', () => {
       )
     })
   })
+
+
+  /* const resultsMockedData = [
+    {
+      title: 'seo',
+      description: `Le SEO est en charge du référencement web d'une page`,
+    },
+    {
+      title: 'frontend',
+      description: `Le développeur ou la développeuse frontend se charge de l'interface : interactions avec l'utilisateur, style, etc.`,
+    },
+  ]
+  
+ const server = setupServer(
+    rest.get('http://localhost:8000/results',(req,res,ctx)=>{
+        return res(ctx.json({resultsData: resultsMockedData}))
+    })
+)
+
+beforeAll(()=>server.listen())
+afterEach(()=>server.resetHandlers())
+afterAll(()=>server.close())
+
+
+test('tester le results', async ()=>{
+    render( <results /> )
+   
+  await waitForElementToBeRemoved(() => screen.queryByTestId('loaderResults'))
+  expect(screen.getByTestId("resultsTitle").getByText("seo")).toBeInTheDocument()
+  expect(screen.getByTestId("descriptionWrapper").getByText("Le SEO est en charge du référencement web d'une page")).toBeInTheDocument()
+  expect(screen.queryByTestId('loaderResults')).not.toBeInTheDocument()
+})  */

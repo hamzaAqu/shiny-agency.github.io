@@ -71,7 +71,7 @@ function Results() {
   const { theme } = useTheme()
   const { answers } = useContext(SurveyContext)
   const fetchParams = formatQueryParams(answers)
-
+  
   const { data, isLoading, error } = useFetch(
     `http://localhost:8000/results?${fetchParams}`
   )
@@ -84,11 +84,12 @@ function Results() {
 
   return isLoading ? (
     <LoaderWrapper>
-      <Loader />
+      <Loader  testid="loaderResults"/>
     </LoaderWrapper>
   ) : (
+   
     <ResultsContainer theme={theme}>
-      <ResultsTitle >
+      <ResultsTitle testid="resultsTitle" >
         Les compétences dont vous avez besoin :
         {resultsData &&
           resultsData.map((result, index) => (
@@ -107,7 +108,7 @@ function Results() {
         Découvrez nos profils
       </StyledLink>
 
-      <DescriptionWrapper>
+      <DescriptionWrapper testid="descriptionWrapper">
         {resultsData &&
           resultsData.map((result, index) => (
             <JobDescription
